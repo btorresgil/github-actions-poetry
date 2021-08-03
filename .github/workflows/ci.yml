@@ -1,0 +1,41 @@
+name: Poetry CI
+
+on:
+  push:
+
+jobs:
+  poetry-test:
+    defaults:
+      run:
+        shell: bash
+    runs-on: windows-latest
+    steps:
+      - run: pwd
+
+      - run: echo $PATH
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - run: echo $PATH
+
+      - name: Download poetry installer
+        run:
+          curl -sSL -O
+          https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py
+
+      - run: ls
+
+      - run: python get-poetry.py
+        # env:
+        #   POETRY_HOME: ./poetry-installed
+
+      - run: poetry self -V
+
+      - run: ls
+
+      # - run: find ./poetry-installed
+
+      - run: find /c/Users/runneradmin/AppData/Roaming/Python/Scripts
